@@ -74,7 +74,7 @@ class ETLEventsANS:
         data = self.extract_and_transform()
         self.load(data)
         end = time.time()
-        logging.info(f"Executio {end - init:.2f} segundos")
+        logging.info(f"Executou em  {end - init:.2f} segundos")
 
 
 if __name__ == '__main__':
