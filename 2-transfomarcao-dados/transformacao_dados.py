@@ -38,7 +38,7 @@ class DataTransformer:
 
     def load_data(self):
         if not os.path.exists(self.input_file):
-            raise FileNotFoundError("Arquivo {self.input_file} não encontrado.")
+            raise FileNotFoundError(f"Arquivo {self.input_file} não encontrado.")
 
         logging.info("Carregando dados...")
         df = pd.read_csv(self.input_file, sep=";", encoding="utf-8", dtype=str)
