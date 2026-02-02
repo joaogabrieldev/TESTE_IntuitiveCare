@@ -69,6 +69,40 @@ class DataTransformerCloud:
             logger.error(f"ERRO no download do cadastro: {error}")
             return None
 
+    def upload_zip_to_s3(self, df_final):
+        csv_buffer = io.StringIO()
+        df_final.to_csv(csv_buffer, index=False, sep=";", encoding="utf-8", decimal=",")
+
+        zip_buffer = io.BytesIO()
+        with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zf:
+            zf.writestr("despesas_agregadas.csv", csv_buffer.getvalue())
+
+        zip_buffer.seek(0)
+        logger.info(f"Enviando para S3: {self.output_key}")
+        self.s3_client.put_object(
+            Bucket=self.bucket_name,
+            Key=self.output_key,
+            Body=zip_buffer
+        )
+        logger.info("Upload concluído!")
+
+    def process(self):
+        df_accounting = self.load_data_from_s3()
+        df_cadastral = self.get_cadastral_data()
+
+        col_register_accounting = [column for column in df_accounting.columns if "REG" in column and "ANS" in column][0]
+        col_register_cadastral = [column for column in df_cadastral.columns if "REGISTRO" in column and "ANS" in column][0]
+
+        logger.info("Cruzando dados...")
+        df_merged = pd.merge(
+            df_accounting,
+            df_cadastral[[col_register_cadastral, 'CNPJ', 'RAZAO_SOCIAL', 'UF']],
+            left_on=col_register_accounting,
+            right_on=col_register_cadastral,
+            how="inner"
+        )
+
+
 
 
 
