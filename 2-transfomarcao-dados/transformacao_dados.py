@@ -73,8 +73,49 @@ class DataTransformer:
         logging.info("Cruzando dados contábeis")
         df_merged = pd.merge(
             df_accounting,
-            df_cadastral[[col]]
+            df_cadastral[[col_register_cadastral, 'CNPJ', 'RAZAO_SOCIAL', 'UF']],
+            left_on=col_register_accounting,
+            right_on=col_register_cadastral,
+            how="inner"
         )
+
+        col_value = [column for column in df_merged.columns if "VALOR" in column or "SALDO" in column][0]
+
+        df_merged[col_value] = df_merged[col_value].str.replace(",", ".").astype(float)
+
+        df_merged = df_merged[df_merged[col_value] > 0]
+
+        df_merged["CNPJ_LIMPO"] = df_merged["CNPJ"].str.replace(r"\D", "", regex=True)
+        df_merged['CNPJ_VALIDO'] = df_merged['CNPJ_LIMPO'].apply(self.validate_cnpj)
+
+        df_final = df_merged[df_merged["CNPJ_LIMPO"] == True].copy()
+
+        logging.info("Realizando cálculos...")
+        df_agg = df_final.groupby(['RAZAO_SOCIAL', 'UF'])[col_value].agg(
+            TOTAL_DESPESAS="sum",
+            MEDIA_TRIMESTRAL="mean",
+            DESVIO_PADRAO="std"
+        ).reset_index().sort_values(by="TOTAL_DESPESAS", ascending=True)
+
+        cols_num = ['TOTAL_DESPESAS', 'MEDIA_TRIMESTRAL', 'DESVIO_PADRAO']
+        df_agg[cols_num] = df_agg[cols_num].round(2)
+
+        df_agg.to_csv(self.output_file, index=False, sep=";", encoding="utf-8", decimal=",")
+
+        with zipfile.ZipFile(self.zip_filename, "w", zipfile.ZIP_DEFLATED) as zf:
+            zf.write(self.output_file)
+
+        logging.info(f"Arquivo final gerado: {self.zip_filename}")
+        logging.info(df_agg.head())
+
+if __name__ == '__main__':
+    etl = DataTransformer()
+    etl.process()
+
+
+
+
+
 
 
 
