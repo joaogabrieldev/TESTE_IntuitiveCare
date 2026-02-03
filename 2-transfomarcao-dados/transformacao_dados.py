@@ -22,7 +22,7 @@ class DataTransformer:
             return False
 
         def calcular_digito(parte_cnpj, pesos):
-            soma_produtos = sum(int(digito) * peso for digito, peso in zip(parte_cnpj))
+            soma_produtos = sum(int(digito) * peso for digito, peso in zip(parte_cnpj, pesos))
 
             resto = soma_produtos % 11
             return 0 if resto < 2 else 11 - resto
@@ -88,7 +88,7 @@ class DataTransformer:
         df_merged["CNPJ_LIMPO"] = df_merged["CNPJ"].str.replace(r"\D", "", regex=True)
         df_merged['CNPJ_VALIDO'] = df_merged['CNPJ_LIMPO'].apply(self.validate_cnpj)
 
-        df_final = df_merged[df_merged["CNPJ_LIMPO"] == True].copy()
+        df_final = df_merged[df_merged["CNPJ_VALIDO"] == True].copy()
 
         logging.info("Realizando cálculos...")
         df_agg = df_final.groupby(['RAZAO_SOCIAL', 'UF'])[col_value].agg(

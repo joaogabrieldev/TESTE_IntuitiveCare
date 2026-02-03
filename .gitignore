@@ -1,0 +1,22 @@
+# Virtual Environments
+.venv/
+venv/
+env/
+Scripts/
+
+# Python
+__pycache__/
+*.pyc
+
+# PyCharm/VSCode
+.idea
+.vscode/
+
+# Results
+dados_brutos/
+*.csv
+*.zip
+
+# --- Arquivos Temporários de Sistema ---
+.DS_Store
+Thumbs.db
