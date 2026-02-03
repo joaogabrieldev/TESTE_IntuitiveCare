@@ -17,6 +17,6 @@ dados_brutos/
 *.csv
 *.zip
 
-# --- Arquivos Temporários de Sistema ---
+# System Temp Files
 .DS_Store
 Thumbs.db
