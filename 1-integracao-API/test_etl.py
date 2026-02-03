@@ -3,7 +3,7 @@ import pandas as pd
 from io import StringIO
 
 class CleanDataTest(unittest.TestCase):
-    def standart_columns_test(self):
+    def test_standart_columns(self):
         csv_data = StringIO("Data Evento; Valor Despesa \n2024-01-01;100")
         df = pd.read_csv(csv_data, sep=";")
 
