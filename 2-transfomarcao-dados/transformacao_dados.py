@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 class DataTransformer:
     def __init__(self):
         self.input_file = os.path.join("dados_brutos", "consolidado_despesas.csv")
-        self.output_file = "despesas_agregadas.csv"
+        self.output_file = os.path.join("dados_brutos", "despesas_agregadas.csv")
         self.zip_filename = " Teste_João-Gabriel.zip"
         self.cadastral_url = "https://dadosabertos.ans.gov.br/FTP/PDA/operadoras_de_plano_de_saude_ativas/Relatorio_Cadop.csv"
 
@@ -52,25 +52,49 @@ class DataTransformer:
         return df
 
     def get_cadastral_data(self):
-        logging.info("Baixando Cadastro de Operadoras...")
+        csv_path = os.path.join("dados_brutos", "Relatorio_cadop.csv")
+        logging.info(f"Lendo cadastro local: {csv_path}")
+
+        if not os.path.exists(csv_path):
+            logging.error("Arquivo Relatorio_Cadop.csv não encontrado!")
+            return None
+
         try:
-            response = requests.get(self.cadastral_url, verify=False)
-            df_cadastral = pd.read_csv(io.BytesIO(response.content), sep=";", encoding="latin1", dtype=str)
+            df_cadastral = pd.read_csv(csv_path, sep=";", encoding="latin1", dtype=str)
             df_cadastral.columns = [column.strip().upper() for column in df_cadastral.columns]
             return df_cadastral
+
         except Exception as error:
             logging.error(f"ERRO: {error}")
             return None
 
     def process(self):
+
         df_accounting = self.load_data()
         df_cadastral = self.get_cadastral_data()
 
+        if df_cadastral is None:
+            logging.error("[ERRO]: Cadastro não carregado.")
+            return
+
         col_register_accounting = [column for column in df_accounting.columns if "REG" in column and "ANS" in column][0]
 
-        col_register_cadastral = [column for column in df_cadastral.columns if "REGISTRO" in column and "ANS" in column][0]
+        logging.info("Identificando colunas de cruzamento...")
 
-        logging.info("Cruzando dados contábeis")
+        if "REGISTRO_OPERADORA" in df_cadastral.columns:
+            col_register_cadastral = "REGISTRO_OPERADORA"
+        else:
+
+            cols_possiveis = [column for column in df_cadastral.columns if "REGISTRO" in column and "DATA" not in column]
+            if cols_possiveis:
+                col_register_cadastral = cols_possiveis[0]
+            else:
+                logging.error("Coluna de registro não encontrada")
+                logging.error(f"Colunas disponíveis: {df_cadastral.columns.tolist()}")
+                return
+
+        logging.info("Cruzando dados...")
+
         df_merged = pd.merge(
             df_accounting,
             df_cadastral[[col_register_cadastral, 'CNPJ', 'RAZAO_SOCIAL', 'UF']],
@@ -80,7 +104,6 @@ class DataTransformer:
         )
 
         col_value = [column for column in df_merged.columns if "VALOR" in column or "SALDO" in column][0]
-
         df_merged[col_value] = df_merged[col_value].str.replace(",", ".").astype(float)
 
         df_merged = df_merged[df_merged[col_value] > 0]
@@ -95,18 +118,23 @@ class DataTransformer:
             TOTAL_DESPESAS="sum",
             MEDIA_TRIMESTRAL="mean",
             DESVIO_PADRAO="std"
-        ).reset_index().sort_values(by="TOTAL_DESPESAS", ascending=True)
+        ).reset_index().sort_values(by="TOTAL_DESPESAS", ascending=False)
 
         cols_num = ['TOTAL_DESPESAS', 'MEDIA_TRIMESTRAL', 'DESVIO_PADRAO']
         df_agg[cols_num] = df_agg[cols_num].round(2)
 
-        df_agg.to_csv(self.output_file, index=False, sep=";", encoding="utf-8", decimal=",")
+        df_agg.to_csv(self.output_file, index=False, sep=";", encoding="utf-8-sig", decimal=",")
 
         with zipfile.ZipFile(self.zip_filename, "w", zipfile.ZIP_DEFLATED) as zf:
-            zf.write(self.output_file)
+            zf.write(self.output_file, arcname="despesas_agregadas.csv")
 
         logging.info(f"Arquivo final gerado: {self.zip_filename}")
-        logging.info(df_agg.head())
+        logging.info(f"Local: {os.path.abspath(self.zip_filename)}")
+
+        if df_agg.empty:
+            logging.warning("O arquivo final está vazio!")
+        else:
+            logging.info("\n" + df_agg.head().to_string())
 
 if __name__ == '__main__':
     etl = DataTransformer()
