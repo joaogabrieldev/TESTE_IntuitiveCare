@@ -102,7 +102,39 @@ class DataTransformerCloud:
             how="inner"
         )
 
+        col_value = [column for column in df_merged.columns if "VALOR" in column or "SALDO" in column][0]
 
+        df_merged[col_value] = df_merged[col_value].str.replace(r"\D", "", regex=True)
+        df_merged['CNPJ_VALIDO'] = df_merged['CNPJ_LIMPO'].apply(self.validate_cnpj)
 
+        df_final = df_merged[df_merged["CNPJ_VALIDO"] == True].copy()
 
+        logger.info("Agregando resultados...")
+
+        df_agg = df_final.groupby(['RAZAO_SOCIAL', 'UF'])[col_value].agg(
+            TOTAL_DESPESAS="sum",
+            MEDIA_TRIMESTRAL="mean",
+            DESVIO_PADRAO="std"
+        ).reset_index().sort_values(by="TOTAL_DESPESAS", ascending=False)
+
+        cols_num = ['TOTAL_DESPESAS', 'MEDIA_TRIMESTRAL', 'DESVIO_PADRAO']
+        df_agg[cols_num] = df_agg[cols_num].round(2)
+
+        self.upload_zip_to_s3(df_agg)
+        return "Sucesso"
+
+    def lambda_handler(event, context):
+        try:
+            transformer = DataTransformerCloud()
+            transformer.process()
+            return {
+                "statusCode": 200,
+                "body": "ETL e Cloud concluídos!"
+            }
+        except Exception as error:
+            logger.error(f"[ERRO]: {error}")
+            return {
+                'statusCode': 500,
+                'body': f'Erro: {str(error)}'
+            }
 
