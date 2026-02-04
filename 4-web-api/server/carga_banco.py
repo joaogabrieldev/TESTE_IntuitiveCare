@@ -13,23 +13,25 @@ class DatabaseLoader:
         self.connection_string = f"sqlite:///{self.db_name}"
         self.engine = create_engine(self.connection_string)
 
+        DATA_DIR = "csv_files"
+
         self.files_config = [
             {
-                "file": "consolidado_despesas.csv",
+                "file": os.path.join(DATA_DIR, "consolidado_despesas.csv"),
                 "table": "detalhe_despesas",
                 "sep": ";",
                 "encoding": "utf-8",
                 "decimal": ","
             },
             {
-                "file": "despesas_agregadas.csv",
+                "file": os.path.join(DATA_DIR, "despesas_agregadas.csv"),
                 "table": "despesas_agregadas",
                 "sep": ";",
                 "encoding": "utf-8-sig",
                 "decimal": ","
             },
             {
-                "file": "Relatorio_Cadop.csv",
+                "file": os.path.join(DATA_DIR, "Relatorio_cadop.csv"),
                 "table": "operadoras_cadastral",
                 "sep": ";",
                 "encoding": "latin1",
