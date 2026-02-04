@@ -41,7 +41,7 @@ class ETLEventsANS:
                                         df = pd.read_csv(f, sep=";", encoding="latin1", dtype=str)
                                     except Exception:
                                         f.seek(0)
-                                        df = pd.read_csv(f, sep=";", encoding="utf-8", dtype=str)
+                                        df = pd.read_csv(f, sep=";", encoding="utf-8-sig", dtype=str)
 
                                     df.columns = [c.strip().upper() for c in df.columns]
                                     df["TRIMESTRE_REF"] = f"{tri}T{year}"
