@@ -41,7 +41,7 @@ class DataTransformer:
             raise FileNotFoundError(f"Arquivo {self.input_file} não encontrado.")
 
         logging.info("Carregando dados...")
-        df = pd.read_csv(self.input_file, sep=";", encoding="utf-8", dtype=str)
+        df = pd.read_csv(self.input_file, sep=";", encoding="utf-8-sig", dtype=str)
         df.columns = [column.strip().upper() for column in df.columns]
 
         col_desc = [c for c in df.columns if "DESCRICAO" in c or "CONTA" in c][-1]
