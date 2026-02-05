@@ -1,10 +1,7 @@
 # Etapa 1: Integração de API - ETL de Dados ANS
 
-## 📋 Visão Geral
 
-Esta etapa implementa um processo ETL (Extract, Transform, Load) para coletar, processar e armazenar dados de demonstrações contábeis da Agência Nacional de Saúde Suplementar (ANS). O projeto foi desenvolvido seguindo boas práticas de engenharia de software, com foco em código limpo, manutenibilidade e escalabilidade.
-
-## 🎯 Objetivo
+## 🎯 Objetivo da Etapa
 
 Desenvolver uma solução robusta para:
 - Extrair dados trimestrais de demonstrações contábeis da ANS via API pública
@@ -18,15 +15,15 @@ Desenvolver uma solução robusta para:
 ```
 1-integração-API/
 ├── etl_ans.py          # Implementação ETL local (sem cloud)
-├── etl_aws_demo.py     # Implementação ETL com AWS (serverless)
+├── etl_aws_demo.py     # Demonstração de Implementação ETL com AWS (serverless)
 ├── test_etl.py         # Testes unitários
 ├── .gitignore          # Arquivos ignorados pelo Git
 └── README.md           # Documentação do projeto
 ```
 
-### Padrão de Design
+### Design Pattern
 
-O projeto utiliza o padrão **Classe Orientada a Objetos** com separação clara de responsabilidades:
+Nesta etapa, utilizei o padrão **Classe Orientada a Objetos** com separação clara de responsabilidades:
 
 - **`ETLEventsANS`**: Classe principal que encapsula toda a lógica ETL
 - **`extract_and_transform()`**: Responsável pela extração e transformação dos dados
@@ -43,9 +40,9 @@ O projeto utiliza o padrão **Classe Orientada a Objetos** com separação clara
 
 ### 2. Tratamento de Encoding
 
-**Decisão**: Tentativa múltipla de encoding (latin1 → utf-8)
+**Decisão**: Tentativa múltipla de encoding (latin1 → utf-8-sig)
 
-**Justificativa**: Dados governamentais brasileiros frequentemente apresentam inconsistências de encoding. Arquivos históricos da ANS podem usar diferentes encodings, exigindo abordagem robusta. A estratégia previne falhas silenciosas que corromperiam caracteres (ex: "ç" se tornando "Ã§"). Inicia-se com `latin1` (comum em sistemas legados) e faz fallback para `utf-8` (padrão moderno), utilizando `try-except` com `f.seek(0)` para resetar o ponteiro. Isso garante que o ETL lide com ambos os padrões sem overhead, mantendo integridade dos dados.
+**Justificativa**: Considerando que bases de dados governamentais, como as da ANS, frequentemente apresentam inconsistências de codificação (variando entre o padrão legado Windows-1252/Latin1 e o moderno UTF-8), implementei um mecanismo de leitura robusto. A estratégia prioriza o formato latin1 para cobrir a maioria dos arquivos históricos gerados por Excel, mas utiliza um fallback automático para utf-8-sig, assegurando que arquivos mais recentes ou convertidos sejam processados corretamente, o que garante a alta resiliência do pipeline de dados.
 
 ```python
 try:
@@ -59,29 +56,31 @@ except Exception:
 
 **Decisão**: Padronização de nomes de colunas (strip + uppercase)
 
-**Justificativa**: Arquivos da ANS de diferentes trimestres podem apresentar variações críticas nos nomes de colunas (capitalização, espaçamento), causando erros em merge e análise. A normalização automática garante padrão rigoroso, eliminando variações de case e espaçamento. Isso é crítico ao consolidar múltiplos trimestres, garantindo que colunas com mesmo significado tenham exatamente o mesmo nome, tornando análises temporais viáveis. Facilita trabalho de desenvolvedores e analistas, pois consultas não precisam considerar variações, simplificando código e melhorando manutenibilidade.
+**Justificativa**: Arquivos da ANS de diferentes trimestres podem apresentar variações críticas nos nomes de colunas (capitalização, espaçamento), causando erros em merge e análise. Para garantir a integridade e facilitar futuras consultas SQL, padronizei os nomes das colunas removendo espaços acidentais (`.strip()`) e convertendo-os para caixa alta (`.upper()`), o que previne erros comuns de diferenciação de caracteres. Simultaneamente, assegurei a rastreabilidade (Lineage) dos dados através da inclusão da coluna `TRIMESTRE_REF`, fornecendo o contexto temporal indispensável para distinguir a origem de cada registro dentro do arquivo consolidado e viabilizar análises cronológicas precisas.
 
-### 4. Remoção de Duplicatas
+### 4. Estratégia de Extração e Processamento em Memória
 
-**Decisão**: Uso de `drop_duplicates()` antes do carregamento
+**Decisão**: Desenvolver o script utilizando requests em conjunto com `io.BytesIO` e `zipfile`.
 
-**Justificativa**: A deduplicação previne distorções em análises estatísticas e agregações. A duplicação pode surgir de execuções repetidas, sobreposições entre trimestres ou erros na fonte. Realizar no final do pipeline é superior porque o pandas otimiza internamente e ocorre em um único ponto, facilitando manutenção. Previne que análises sejam distorcidas (ex: registro contado múltiplas vezes inflaciona métricas), garantindo integridade essencial. Além disso, reduz espaço de armazenamento e custos, enquanto melhora performance de consultas downstream (join, groupby, indexação).
+**Justificativa**: Optei por realizar o download e a descompactação dos arquivos .zip inteiramente em memória (RAM), sem a necessidade de salvar arquivos temporários em disco, o que reduz drasticamente a latência de I/O e torna o processamento significativamente mais rápido. Além de manter o ambiente limpo ao evitar o acúmulo de arquivos residuais no sistema operacional, essa abordagem assegura a compatibilidade com a nuvem (Cloud-Readiness), facilitando a migração para arquiteturas serverless (como AWS Lambda), que possuem armazenamento temporário limitado e efêmero.
 
 ### 5. Logging Estruturado
 
 **Decisão**: Implementação de logging com formato padronizado
 
-**Justificativa**: O logging estruturado é fundamental para ETLs em produção, onde rastreabilidade e debugging são essenciais. O formato padronizado segue padrões da indústria, facilitando parsing automático por ferramentas como CloudWatch, ELK Stack ou Datadog. A diferenciação entre níveis (INFO, WARNING, ERROR) permite alertas focados em problemas críticos. Os logs permitem reconstruir a sequência de eventos quando um ETL falha. Em ambientes cloud como AWS Lambda, logs são automaticamente capturados pelo CloudWatch, permitindo dashboards, métricas e alertas.
+**Justificativa**: O logging estruturado é fundamental para ETLs em produção, onde rastreabilidade e debugging são essenciais. O formato padronizado segue padrões da indústria, facilitando parsing automático por ferramentas como CloudWatch. A diferenciação entre níveis (INFO, WARNING, ERROR) permite alertas focados em problemas específicos. Os logs permitem reconstruir a sequência de eventos quando um ETL falha.
 
-### 6. Medição de Performance
+### 6. Testes Unitários
 
-**Decisão**: Inclusão de métricas de tempo de execução
+**Decisão**: Criação de Testes Unitários para a Etapa.
 
-**Justificativa**: A medição de tempo de execução é essencial em ETLs com grandes volumes, onde eficiência impacta custos. O estabelecimento de baseline permite comparações objetivas, identificando se mudanças melhoraram ou degradaram a performance. Fornece ponto de partida para análises mais profundas e identificação de gargalos. Em ambientes cloud como AWS Lambda, o tempo está diretamente relacionado a custos (cobrança por tempo e memória). Execuções muito longas podem exceder timeout ou gerar custos altos, tornando a medição essencial para dimensionar recursos. O monitoramento permite detectar degradação gradual e definir SLAs com alertas.
+**Justificativa**: A inclusão de testes unitários no arquivo test_etl.py adiciona uma camada indispensável de segurança e confiabilidade ao pipeline de dados. Ao validar isoladamente a lógica de padronização e limpeza das colunas — uma etapa crítica e propensa a erros na fase de transformação —, garantimos que as regras de negócio estejam corretas antes de submeter o sistema a cargas reais. Essa prática preventiva é fundamental para evitar o desperdício de tempo e recursos computacionais, impedindo que falhas estruturais sejam descobertas apenas após o processamento oneroso de gigabytes de dados.
 
 ## ☁️ Versão Cloud (Diferencial)
 
-A versão `etl_aws_demo.py` demonstra como o mesmo código pode ser adaptado para uma arquitetura serverless na AWS:
+**Decisão**: Criação do script `etl_aws_demo.py` simulando uma função AWS Lambda integrada ao S3. 
+
+**Justificativa**: Mesmo fazendo o teste localmente, incluí um exemplo de como seria a versão na nuvem. A arquitetura usa serviços da AWS que não exigem gerenciamento de servidores, o que deixa o projeto mais barato e rápido, além de manter os arquivos salvos de forma independente do processamento.
 
 ### Componentes Utilizados
 
@@ -91,10 +90,7 @@ A versão `etl_aws_demo.py` demonstra como o mesmo código pode ser adaptado par
 
 ### Vantagens da Abordagem Cloud
 
-1. **Escalabilidade**: Processamento automático sem gerenciamento de servidores
-2. **Custo**: Pagamento apenas pelo uso (pay-per-use)
-3. **Confiabilidade**: Infraestrutura gerenciada pela AWS
-4. **Disponibilidade**: Acesso aos dados de qualquer lugar
+- A arquitetura proposta oferece alta escalabilidade através do processamento automático e sem a necessidade de gerenciamento de servidores (serverless), aliado a um modelo de custo eficiente onde se paga apenas pelos recursos efetivamente utilizados (pay-per-use). Além disso, a solução garante a confiabilidade inerente à infraestrutura gerenciada pela AWS e assegura total disponibilidade, permitindo o acesso seguro aos dados a partir de qualquer lugar.
 
 ### Adaptações Realizadas
 
@@ -144,6 +140,10 @@ pip install requests pandas boto3
 ## 🚀 Como Executar
 
 ### Versão Local
+
+```bash
+cd 1-integracao-API
+```
 
 ```bash
 python etl_ans.py
@@ -200,47 +200,14 @@ python test_etl.py
 - Métodos com responsabilidades únicas
 - Código modular e reutilizável
 
-### 3. **Configuração Centralizada**
-- Parâmetros definidos no `__init__`
-- Fácil manutenção e alteração
-
-### 4. **Versionamento**
+### 3. **Versionamento**
 - Uso adequado de Git (`.gitignore` configurado)
 - Estrutura de pastas organizada
 
-### 5. **Documentação**
+### 4. **Documentação**
 - Código comentado onde necessário
 - README completo e detalhado
 
-## 📈 Performance
-
-O código foi otimizado para:
-- **Streaming de dados**: Uso de `stream=True` em requisições HTTP
-- **Processamento em memória**: Buffer de dados antes da consolidação
-- **Remoção de duplicatas**: Otimização do dataset final
-
-## 🔄 Fluxo de Execução
-
-```
-1. Inicialização
-   └─> Preparação do ambiente (criação de diretórios)
-
-2. Extração (Extract)
-   └─> Para cada trimestre:
-       ├─> Download do arquivo ZIP
-       ├─> Extração dos CSVs
-       └─> Leitura e bufferização dos dados
-
-3. Transformação (Transform)
-   └─> Normalização de colunas
-   └─> Adição de coluna TRIMESTRE_REF
-   └─> Consolidação de todos os DataFrames
-
-4. Carregamento (Load)
-   └─> Remoção de duplicatas
-   └─> Exportação para CSV (local) ou S3 (cloud)
-   └─> Logging de estatísticas
-```
 
 ## 🎓 Conhecimentos Demonstrados
 
@@ -261,22 +228,6 @@ O código foi otimizado para:
 - Separação de responsabilidades
 - Código extensível e manutenível
 
-## 🚧 Melhorias Futuras
-
-1. **Testes Adicionais**
-   - Testes de integração
-   - Testes de performance
-   - Testes de tratamento de erros
-
-2. **Otimizações**
-   - Processamento paralelo de trimestres
-   - Validação de schema dos dados
-   - Compressão de arquivos de saída
-
-3. **Monitoramento**
-   - Integração com CloudWatch (AWS)
-   - Alertas de falhas
-   - Dashboards de métricas
 
 ## 📝 Notas Finais
 
@@ -293,5 +244,5 @@ Este projeto demonstra:
 
 ---
 
-**Desenvolvido com foco em qualidade, manutenibilidade e escalabilidade.**
+
 
