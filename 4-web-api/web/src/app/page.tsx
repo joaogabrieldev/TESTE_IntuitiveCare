@@ -82,7 +82,7 @@ export default function Dashboard() {
           <input
             type="text"
             placeholder="Buscar por Razão Social ou CNPJ..."
-            className="border border-gray-300 rounded-lg px-4 py-2 w-full md:w-80 focus:ring-2 focus:ring-blue-500 outline-none transition"
+            className="border border-gray-300 text-gray-600 rounded-lg px-4 py-2 w-full md:w-80 focus:ring-2 focus:ring-blue-500 outline-none transition"
             value={busca}
             onChange={(e) => {
               setBusca(e.target.value);

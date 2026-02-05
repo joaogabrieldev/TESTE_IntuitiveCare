@@ -1,6 +1,6 @@
 // src/hooks/useOperadoras.ts
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios"; 
+import axios from "axios";
 import { Operadora, PaginatedResponse, Estatisticas, Despesa } from "@/types";
 
 const api = axios.create({
@@ -13,7 +13,7 @@ export function useOperadoras(page: number, busca: string) {
     queryFn: async () => {
       console.log("BUSCANDO DADOS VIA AXIOS DIRETO...");
 
-      const params = { page, limit: 10, busca: busca || undefined };
+      const params = { page, limit: 10, query: busca || undefined };
 
       const { data } = await api.get<PaginatedResponse<Operadora>>(
         "/operadoras",
