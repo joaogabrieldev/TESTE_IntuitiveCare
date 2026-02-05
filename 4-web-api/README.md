@@ -57,17 +57,17 @@ O projeto foi dividido em dois monorepositórios (Backend e Frontend) para mante
 
 **Justificativa**: O FastAPI foi escolhido por sua alta performance e geração automática de documentação (Swagger UI), essencial para testes rápidos. O SQLite foi adotado pela portabilidade (arquivo único) e simplicidade de configuração. Para contornar limitações de concorrência do SQLite em ambiente web, utilizei a flag `check_same_thread=False` na engine do SQLAlchemy, permitindo múltiplas requisições simultâneas sem bloqueio.
 
-### 2. Frontend: Next.js e Tailwind CSS
+### 2. Frontend com React ao invés do Vue.js
 
-**Decisão**: Uso do Next.js (App Router) com estilização utilitária via Tailwind.
+**Decisão**: Adoção do ecossistema React (Next.js + TypeScript) em vez de Vue.js.
 
-**Justificativa**: O Next.js oferece a estrutura de rotas mais robusta do mercado React atual. O Tailwind CSS permitiu o desenvolvimento rápido de uma interface limpa, responsiva e moderna sem a necessidade de escrever arquivos CSS separados, mantendo o código conciso e fácil de manter.
+**Justificativa**: A escolha pelo ecossistema **React (Next.js + TypeScript)** priorizou a proficiência técnica e a robustez arquitetural. Ao utilizar minha stack principal, garanti uma entrega veloz e eliminei a curva de aprendizado, alavancando uma arquitetura baseada em componentes funcionais e hooks que, aliada à tipagem estrita do TypeScript, estabelece um contrato de dados rígido e seguro entre Backend e Frontend. Além disso, a estrutura do Next.js (App Router) impõe padrões de organização que favorecem a separação de responsabilidades (Client vs. Server Components), resultando em um código mais limpo, modular e escalável — prevenindo erros críticos em tempo de compilação de forma mais eficaz do que uma implementação padrão em Vue. 
 
 ### 3. Gerenciamento de Estado e Cache
 
 **Decisão**: Implementação do **TanStack Query (React Query)**.
 
-**Justificativa**: Para evitar requisições desnecessárias e melhorar a UX, o TanStack Query gerencia o estado do servidor no frontend. Ele oferece cache automático, refetching em segundo plano e estados de carregamento (`isLoading`), garantindo que o dashboard seja extremamente reativo e veloz, sem sobrecarregar a API.
+**Justificativa**: Para evitar requisições desnecessárias e melhorar a UX, o **TanStack Query** gerencia o estado do servidor no frontend. Ele oferece cache automático, refetching em segundo plano e estados de carregamento (`isLoading`), garantindo que o dashboard seja extremamente reativo e veloz, sem sobrecarregar a API.
 
 ### 4. Cliente HTTP e Resiliência
 
@@ -104,6 +104,7 @@ O projeto foi dividido em dois monorepositórios (Backend e Frontend) para mante
 
 ```python
 fastapi       # Framework Web
+swagger       # Documentação de API (integrado automaticamente com FastAPI)
 uvicorn       # Servidor ASGI
 sqlalchemy    # ORM de Banco de Dados
 pydantic      # Validação de Dados
