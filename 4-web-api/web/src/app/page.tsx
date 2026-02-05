@@ -52,7 +52,7 @@ export default function Dashboard() {
 
   return (
     <main className="max-w-6xl mx-auto p-6">
-      <h1 className="text-3xl font-bold text-gray-600 mb-8 border-b pb-4">
+      <h1 className="text-3xl font-bold text-gray-400 mb-8 border-b pb-4 text-center font-sans">
         Dashboard Intuitive Care
       </h1>
 
