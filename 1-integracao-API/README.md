@@ -112,12 +112,6 @@ O arquivo `test_etl.py` implementa testes unitários utilizando `unittest`, fram
 - Verifica remoção de espaços em branco
 - Garante que colunas antigas não existem após transformação
 
-### Boas Práticas Aplicadas
-
-- Testes isolados e independentes
-- Uso de dados mockados (StringIO)
-- Assertions claras e específicas
-
 ## 📦 Dependências
 
 ### Bibliotecas Utilizadas
