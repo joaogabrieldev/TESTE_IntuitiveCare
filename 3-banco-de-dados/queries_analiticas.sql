@@ -1,3 +1,5 @@
+--* Código MySQL
+
 -- QUERY 1
 WITH Despesas_Trimestrais AS (
     SELECT

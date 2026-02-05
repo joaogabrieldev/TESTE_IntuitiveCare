@@ -1,3 +1,4 @@
+--* Código SQLite para Rodar Localmente
 -- 1. QUERY 1
 SELECT
     RAZAO_SOCIAL,
