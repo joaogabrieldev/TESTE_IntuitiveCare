@@ -88,10 +88,6 @@ except Exception:
 - **Amazon S3**: Armazenamento dos dados processados
 - **EventBridge**: Agendamento de execuções (implícito na arquitetura)
 
-### Vantagens da Abordagem Cloud
-
-- A arquitetura proposta oferece alta escalabilidade através do processamento automático e sem a necessidade de gerenciamento de servidores (serverless), aliado a um modelo de custo eficiente onde se paga apenas pelos recursos efetivamente utilizados (pay-per-use). Além disso, a solução garante a confiabilidade inerente à infraestrutura gerenciada pela AWS e assegura total disponibilidade, permitindo o acesso seguro aos dados a partir de qualquer lugar.
-
 ### Adaptações Realizadas
 
 - Substituição de `load()` por `load_to_s3()`
