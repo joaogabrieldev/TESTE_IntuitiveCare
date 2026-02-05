@@ -156,7 +156,10 @@ npm install
 npm run dev
 ```
 
-Acesse o dashboard em: http://localhost:3000
+```
+Acesse o Dashboard em: 
+http://localhost:3000
+```
 
 ## Notas Finais
 
