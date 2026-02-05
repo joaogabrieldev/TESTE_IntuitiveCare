@@ -13,6 +13,7 @@ import {
   Legend,
 } from "chart.js";
 import { useOperadoras, useEstatisticas } from "@/hooks/useOperadoras";
+import {Ubuntu} from "next/font/google"
 
 ChartJS.register(
   CategoryScale,
@@ -22,6 +23,11 @@ ChartJS.register(
   Tooltip,
   Legend,
 );
+
+const ubuntu = Ubuntu({
+  weight: ["300", "400", "500", "700"],
+  subsets: ["latin"]
+})
 
 export default function Dashboard() {
   const router = useRouter();
@@ -52,12 +58,16 @@ export default function Dashboard() {
 
   return (
     <main className="max-w-6xl mx-auto p-6">
-      <h1 className="text-3xl font-bold text-gray-400 mb-8 border-b pb-4 text-center font-sans">
+      <h1
+        className={`text-3xl font-bold text-gray-400 mb-8 border-b pb-4 text-center font-sans ${ubuntu.className}`}
+      >
         Dashboard Intuitive Care
       </h1>
 
       <section className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 mb-8">
-        <h2 className="text-xl font-semibold mb-6 text-gray-700">
+        <h2
+          className={`text-xl font-semibold mb-6 text-gray-700 ${ubuntu.className}`}
+        >
           Top 5 Maiores Despesas
         </h2>
         <div className="h-64 flex items-center justify-center">
@@ -76,7 +86,7 @@ export default function Dashboard() {
 
       <section className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
         <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-          <h2 className="text-xl font-semibold text-gray-700">
+          <h2 className={`text-xl font-semibold text-gray-700 ${ubuntu.className}`}>
             Operadoras Cadastradas
           </h2>
           <input
