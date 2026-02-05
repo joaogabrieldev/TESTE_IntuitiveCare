@@ -10,7 +10,8 @@ Esta etapa foca na persistência e análise dos dados processados nas etapas ant
 ## 🏗️ Arquitetura
 
 ### Estrutura do Projeto
-```
+
+```bash
 3-banco-de-dados/ 
     ├── csv_files/ # Diretório contendo os CSVs gerados nas etapas 1 e 2 
     ├── carga_banco.py # Script Python para carga e orquestração (ETL) 
@@ -49,6 +50,11 @@ Quanto à tipagem de dados, o tipo DECIMAL(15,2) foi escolhido em detrimento de 
 
 **Justificativa**: A adoção de um script Python (carga_banco.py) em detrimento do carregamento direto via SQL (LOAD DATA INFILE) justifica-se pelas severas inconsistências presentes nos arquivos CSV de entrada, que atuariam como bloqueios técnicos em uma ingestão nativa. O script funciona como uma camada indispensável de sanitização, responsável por unificar o encoding misto dos arquivos — que oscilam entre latin1, utf-8 e utf-8-sig —, converter corretamente a formatação numérica do padrão brasileiro (vírgula decimal), frequentemente interpretada como texto pelos motores SQL, e normalizar headers inconsistentes que apresentam variações de nomenclatura e espaços em branco, assegurando a padronização dos dados antes da inserção no banco.
 
+### 4. SQLite & MySQL 
+
+**Decisão**: Desenvolvimento de scripts adaptados para dois ambientes: **SQLite** (para automação local) e **MySQL** (para conformidade com o enunciado).
+
+**Justificativa**: Para priorizar a facilidade de execução ("Run") na máquina do avaliador, utilizei o SQLite no script de automação, pois ele dispensa a instalação de servidores de banco de dados complexos. Por conta disso, criei versões das queries otimizadas para a sintaxe do SQLite (ex: uso de strftime para datas) no arquivo de validação automática, enquanto mantive a lógica estrutural compatível com MySQL nos arquivos de definição, garantindo que o projeto seja "Plug and Play" sem ferir os requisitos originais de compatibilidade.
 
 ## 📊 Consultas Analíticas Desenvolvidas
 
@@ -64,8 +70,10 @@ Lista os estados com maiores despesas e a média por operadora.
 
 ### Query 3: Performance Consistente
 Identifica operadoras acima da média de mercado em 2 ou mais trimestres.
-- **Abordagem**: Window Functions / Subqueries.
-- **Lógica**: Primeiro calcula-se a média do mercado por mês/trimestre, depois compara-se cada operadora com essa média, filtrando com `HAVING COUNT(*) >= 2`.
+- **Abordagem**: CTE's em Cascata.
+- **Lógica**: Comparação trimestral entre despesa da operadora e média de mercado, filtrando por recorrência (≥ 2).
+
+- **Justificativa**: A escolha por **CTEs (Common Table Expressions)** torna o código mais legível e linear, evitando a confusão de consultas aninhadas. Além de facilitar a manutenção ao centralizar as regras de tempo, essa abordagem melhora a performance: o banco calcula a média do mercado apenas uma vez por trimestre — e não linha por linha —, garantindo um processamento final muito mais eficiente.
 
 ## 📦 Dependências
 
