@@ -89,15 +89,15 @@ O projeto está organizado em **4 etapas sequenciais**, cada uma com objetivos e
 <div align="center">
 
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="50"/> 
-<img width="20"/>
+<img width="10"/>
 <img src="https://cdn.simpleicons.org/fastapi/009688" width="50"/> 
-<img width="20"/>
+<img width="10"/>
 <img src="https://cdn.simpleicons.org/sqlalchemy/1F4E79" width="50"/> 
-<img width="20"/>
+<img width="10"/>
 <img src="https://cdn.simpleicons.org/pandas/150458" width="50"/> 
-<img width="20" />
+<img width="10" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" width="50"/> 
-<img width="20"/>
+<img width="10"/>
    
 </div>
 
@@ -118,13 +118,13 @@ O projeto está organizado em **4 etapas sequenciais**, cada uma com objetivos e
 <div align="center">
 
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" width="50" />
-<img width="20" />
+<img width="10" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="50" />
-<img width="20" />
+<img width="10" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" width="50" />
-<img width="20" />
+<img width="10" />
 <img src="https://cdn.simpleicons.org/tailwindcss/06B6D4" width="50" />
-<img width="20" />
+<img width="10" />
 
 </div>
 
@@ -145,9 +145,9 @@ O projeto está organizado em **4 etapas sequenciais**, cada uma com objetivos e
 <div align="center">
 
 <img src="https://cdn.simpleicons.org/sqlite/003B57" width="50" />
-<img width="20" />
+<img width="10" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" width="50" />
-<img width="20" />
+<img width="10" />
 
 </div>
 
@@ -159,7 +159,6 @@ O projeto está organizado em **4 etapas sequenciais**, cada uma com objetivos e
 <div align="center">
 
 <img src="https://skillicons.dev/icons?i=aws" />
-<img width="20" />
 
 </div>
 
@@ -176,7 +175,7 @@ O projeto está organizado em **4 etapas sequenciais**, cada uma com objetivos e
 <div align="center">
 
 <img src="https://skillicons.dev/icons?i=python"/> 
-<img width="20" />
+<img width="10" />
 <img src="https://skillicons.dev/icons?i=aws" />
 
 </div>
@@ -208,9 +207,9 @@ O projeto está organizado em **4 etapas sequenciais**, cada uma com objetivos e
 <div align="center">
 
 <img src="https://skillicons.dev/icons?i=python"/> 
-<img width="20" />
+<img width="10" />
 <img src="https://cdn.simpleicons.org/pandas/150458" width="50"/> 
-<img width="20"/>
+<img width="10"/>
 <img src="https://skillicons.dev/icons?i=aws" />
 
 </div>
@@ -242,7 +241,7 @@ O projeto está organizado em **4 etapas sequenciais**, cada uma com objetivos e
 <div align="center">
 
 <img src="https://skillicons.dev/icons?i=sqlite" width="50"/>
-<img width="20"/>
+<img width="10"/>
 <img src="https://skillicons.dev/icons?i=python" width="50"/>
 
 </div>
@@ -281,13 +280,13 @@ O projeto está organizado em **4 etapas sequenciais**, cada uma com objetivos e
 <div align="center">
 
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" width="50" />
-<img width="20" />
+<img width="10" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="50" />
-<img width="20" />
+<img width="10" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" width="50" />
-<img width="20" />
+<img width="10" />
 <img src="https://cdn.simpleicons.org/fastapi/009688" width="50"/> 
-<img width="20" />
+<img width="10" />
 <img src="https://skillicons.dev/icons?i=python" width="50"/>
 
 </div>
