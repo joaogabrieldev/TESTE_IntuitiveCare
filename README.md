@@ -2,8 +2,6 @@
 
 # 🏥 Teste Técnico - Intuitive Care
 
-### Pipeline Completo de Dados: ETL, Transformação, Banco de Dados e Dashboard Web
-
 [![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-16.1-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.128-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
@@ -90,47 +88,66 @@ O projeto está organizado em **4 etapas sequenciais**, cada uma com objetivos e
 
 <div align="center">
 
-![Python](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg) ![FastAPI](https://cdn.simpleicons.org/fastapi/009688) ![SQLAlchemy](https://cdn.simpleicons.org/sqlalchemy/1F4E79) ![Pandas](https://cdn.simpleicons.org/pandas/150458) ![NumPy](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg)
-
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="50"/> 
+<img width="20"/>
+<img src="https://cdn.simpleicons.org/fastapi/009688" width="50"/> 
+<img width="20"/>
+<img src="https://cdn.simpleicons.org/sqlalchemy/1F4E79" width="50"/> 
+<img width="20"/>
+<img src="https://cdn.simpleicons.org/pandas/150458" width="50"/> 
+<img width="20" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" width="50"/> 
+<img width="20"/>
+   
 </div>
 
-| Biblioteca | Versão | Uso |
-|------------|--------|-----|
-| **pandas** | 3.0.0 | Manipulação e processamento de dados tabulares |
-| **numpy** | 2.4.1 | Cálculos numéricos otimizados e estatísticas |
-| **requests** | 2.32.5 | Requisições HTTP para API da ANS |
-| **boto3** | 1.42.39 | SDK AWS para integração com S3 e Lambda |
-| **SQLAlchemy** | 2.0.46 | ORM para gerenciamento de banco de dados |
-| **fastapi** | 0.128.1 | Framework web moderno e performático |
-| **uvicorn** | 0.40.0 | Servidor ASGI para FastAPI |
-| **pydantic** | 2.12.5 | Validação de dados e modelos |
-| **openpyxl** | 3.1.5 | Leitura de arquivos Excel |
+<h3 align="center">Dependências</h3>
+
+- **Pandas**: Manipulação e processamento de dados tabulares
+- **Numpy**: Cálculos numéricos otimizados e estatísticas
+- **Requests**: Requisições HTTP para API da ANS
+- **Boto3**: SDK AWS para integração com S3 e Lambda
+- **SQLAlchemy**: ORM para gerenciamento de banco de dados
+- **FastAPI**: Framework web moderno e performático
+- **Uvicorn**: Servidor ASGI para FastAPI
+- **Pydantic**: Validação de dados e modelos
+- **Openpyxl**: Leitura de arquivos Excel
 
 ### ⚛️ Frontend (TypeScript/React)
 
 <div align="center">
 
-![Next.js](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg) ![React](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg) ![TypeScript](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg) ![Tailwind CSS](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg)
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" width="50" />
+<img width="20" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="50" />
+<img width="20" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" width="50" />
+<img width="20" />
+<img src="https://cdn.simpleicons.org/tailwindcss/06B6D4" width="50" />
+<img width="20" />
 
 </div>
 
-| Biblioteca | Versão | Uso |
-|------------|--------|-----|
-| **next** | 16.1.6 | Framework React com App Router |
-| **react** | 19.2.3 | Biblioteca de interface de usuário |
-| **typescript** | 5.x | Tipagem estática para JavaScript |
-| **axios** | 1.13.4 | Cliente HTTP para comunicação com API |
-| **@tanstack/react-query** | 5.90.20 | Gerenciamento de estado e cache |
-| **chart.js** | 4.5.1 | Biblioteca de gráficos |
-| **react-chartjs-2** | 5.3.1 | Wrapper React para Chart.js |
-| **tailwindcss** | 4.x | Framework CSS utility-first |
-| **zod** | 4.3.6 | Validação de schemas TypeScript |
+<h3 align="center">Dependências</h3>
+
+- **Next**: Framework React com App Router
+- **React**: Biblioteca de interface de usuário
+- **Typescript**: Tipagem estática para JavaScript
+- **Axios**: Cliente HTTP para comunicação com API
+- **@tanstack/react-query**: Gerenciamento de estado e cache
+- **Chart.js**: Biblioteca de gráficos
+- **react-chartjs-2**: Wrapper React para Chart.js
+- **Tailwind CSS**: Framework CSS utility-first
+- **Zod**: Validação de schemas TypeScript
 
 ### 🗄️ Banco de Dados
 
 <div align="center">
 
-![SQLite](https://cdn.simpleicons.org/sqlite/003B57) ![MySQL](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg)
+<img src="https://cdn.simpleicons.org/sqlite/003B57" width="50" />
+<img width="20" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" width="50" />
+<img width="20" />
 
 </div>
 
@@ -141,7 +158,8 @@ O projeto está organizado em **4 etapas sequenciais**, cada uma com objetivos e
 
 <div align="center">
 
-![AWS](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg) ![Lambda](https://cdn.simpleicons.org/awslambda/FF9900) ![S3](https://cdn.simpleicons.org/amazons3/569A31)
+<img src="https://skillicons.dev/icons?i=aws" />
+<img width="20" />
 
 </div>
 
@@ -157,13 +175,16 @@ O projeto está organizado em **4 etapas sequenciais**, cada uma com objetivos e
 
 <div align="center">
 
-![Python](https://skillicons.dev/icons?i=python) ![AWS](https://skillicons.dev/icons?i=aws)
+<img src="https://skillicons.dev/icons?i=python"/> 
+<img width="20" />
+<img src="https://skillicons.dev/icons?i=aws" />
 
 </div>
 
 **Objetivo**: Extrair, transformar e carregar dados trimestrais de demonstrações contábeis da ANS.
 
 **Principais Funcionalidades**:
+
 - ✅ Extração automática de múltiplos trimestres via API pública
 - ✅ Processamento em memória (sem arquivos temporários)
 - ✅ Tratamento robusto de encoding (latin1 → utf-8)
@@ -171,11 +192,14 @@ O projeto está organizado em **4 etapas sequenciais**, cada uma com objetivos e
 - ✅ Versão local e cloud (AWS Lambda + S3)
 
 **Arquivos Principais**:
+
 - `etl_ans.py` - Implementação local
 - `etl_aws_demo.py` - Versão serverless para AWS
 - `test_etl.py` - Testes unitários
 
 **Padrão de Design**: Classe Orientada a Objetos com separação de responsabilidades (ETL)
+
+**Documentação Completa da Etapa 1**: [Clique Aqui e Confira!](https://github.com/joaogabrieldev/teste_intuitivecare/tree/main/1-integracao-API)
 
 ---
 
@@ -183,13 +207,18 @@ O projeto está organizado em **4 etapas sequenciais**, cada uma com objetivos e
 
 <div align="center">
 
-![Python](https://skillicons.dev/icons?i=python) ![Pandas](https://skillicons.dev/icons?i=pandas)
+<img src="https://skillicons.dev/icons?i=python"/> 
+<img width="20" />
+<img src="https://cdn.simpleicons.org/pandas/150458" width="50"/> 
+<img width="20"/>
+<img src="https://skillicons.dev/icons?i=aws" />
 
 </div>
 
 **Objetivo**: Qualificar, validar e enriquecer os dados brutos com regras de negócio.
 
 **Principais Funcionalidades**:
+
 - ✅ Validação algorítmica de CNPJ (dígitos verificadores)
 - ✅ Enriquecimento com cadastro oficial de operadoras (ANS)
 - ✅ Cálculo de métricas estatísticas (Soma, Média, Desvio Padrão)
@@ -197,11 +226,14 @@ O projeto está organizado em **4 etapas sequenciais**, cada uma com objetivos e
 - ✅ Agregação por UF e ordenação por despesas
 
 **Arquivos Principais**:
+
 - `transformacao_dados.py` - Pipeline de transformação local
 - `transformacao_aws_demo.py` - Versão cloud
 - `test_transformacao.py` - Testes de validação de CNPJ
 
 **Padrão de Design**: ETL encapsulado em classes com métodos estáticos
+
+**Documentação Completa da Etapa 2**: [Clique Aqui e Confira!](https://github.com/joaogabrieldev/teste_intuitivecare/tree/main/2-transfomarcao-dados)
 
 ---
 
@@ -209,13 +241,16 @@ O projeto está organizado em **4 etapas sequenciais**, cada uma com objetivos e
 
 <div align="center">
 
-![SQL](https://skillicons.dev/icons?i=sqlite) ![Python](https://skillicons.dev/icons?i=python)
+<img src="https://skillicons.dev/icons?i=sqlite" width="50"/>
+<img width="20"/>
+<img src="https://skillicons.dev/icons?i=python" width="50"/>
 
 </div>
 
 **Objetivo**: Modelar esquema relacional e executar queries analíticas complexas.
 
 **Principais Funcionalidades**:
+
 - ✅ Modelagem normalizada (tabelas separadas)
 - ✅ Carga automatizada via Python (sanitização de dados)
 - ✅ Queries analíticas complexas (CTEs, Joins, Agregações)
@@ -223,6 +258,7 @@ O projeto está organizado em **4 etapas sequenciais**, cada uma com objetivos e
 - ✅ Tratamento de encoding e tipagem de dados
 
 **Arquivos Principais**:
+
 - `ddl_db.sql` - Definição das tabelas
 - `carga_banco.py` - Script ETL de carga
 - `queries_analiticas.sql` - Consultas de negócio
@@ -231,9 +267,12 @@ O projeto está organizado em **4 etapas sequenciais**, cada uma com objetivos e
 **Padrão de Design**: ELT (Extract, Load, Transform) híbrido
 
 **Queries Analíticas**:
+
 1. **Crescimento de Despesas**: Top 5 operadoras com maior crescimento percentual
 2. **Distribuição Geográfica**: Estados com maiores despesas e média por operadora
 3. **Performance Consistente**: Operadoras acima da média em 2+ trimestres
+
+**Documentação Completa da Etapa 3**: [Clique Aqui e Confira!](https://github.com/joaogabrieldev/teste_intuitivecare/tree/main/3-banco-de-dados)
 
 ---
 
@@ -241,19 +280,29 @@ O projeto está organizado em **4 etapas sequenciais**, cada uma com objetivos e
 
 <div align="center">
 
-![Next.js](https://skillicons.dev/icons?i=nextjs) ![React](https://skillicons.dev/icons?i=react) ![TypeScript](https://skillicons.dev/icons?i=typescript) ![FastAPI](https://skillicons.dev/icons?i=fastapi)
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" width="50" />
+<img width="20" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="50" />
+<img width="20" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" width="50" />
+<img width="20" />
+<img src="https://cdn.simpleicons.org/fastapi/009688" width="50"/> 
+<img width="20" />
+<img src="https://skillicons.dev/icons?i=python" width="50"/>
 
 </div>
 
 **Objetivo**: Desenvolver aplicação web completa para visualização e análise dos dados.
 
 **Backend (FastAPI)**:
+
 - ✅ API RESTful com documentação Swagger automática
 - ✅ Endpoints para listagem, busca e detalhamento
 - ✅ Middleware CORS configurado
 - ✅ Queries otimizadas com paginação
 
 **Frontend (Next.js + React)**:
+
 - ✅ Dashboard interativo com busca em tempo real
 - ✅ Paginação de milhares de registros
 - ✅ Gráficos dinâmicos (Chart.js)
@@ -262,12 +311,15 @@ O projeto está organizado em **4 etapas sequenciais**, cada uma com objetivos e
 - ✅ Tipagem completa com TypeScript
 
 **Arquivos Principais**:
+
 - `server/main.py` - API FastAPI
 - `web/src/app/` - Páginas Next.js
 - `web/src/hooks/` - Custom hooks para dados
 - `web/src/types/` - Definições TypeScript
 
 **Padrão de Design**: Arquitetura de componentes funcionais com hooks
+
+**Documentação Completa da Etapa 4**: [Clique Aqui e Confira!](https://github.com/joaogabrieldev/teste_intuitivecare/tree/main/4-web-api)
 
 ---
 
@@ -313,48 +365,40 @@ O projeto está organizado em **4 etapas sequenciais**, cada uma com objetivos e
 
 ## 🚀 Como Executar
 
-### 📋 Pré-requisitos
-
-- Python 3.8+
-- Node.js 18+
-- pnpm (ou npm/yarn)
-
 ### 🔧 Instalação
 
 1. **Clone o repositório**:
+
 ```bash
 git clone https://github.com/joaogabrieldev/teste_intuitivecare.git
 cd teste_intuitivecare
 ```
 
-2. **Configure o ambiente Python**:
-```bash
-python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-3. **Execute as etapas sequencialmente**:
+2. **Execute as etapas sequencialmente**:
 
 #### Etapa 1: Integração API
+
 ```bash
 cd 1-integracao-API
 python etl_ans.py
 ```
 
 #### Etapa 2: Transformação
+
 ```bash
 cd ../2-transfomarcao-dados
 python transformacao_dados.py
 ```
 
 #### Etapa 3: Banco de Dados
+
 ```bash
 cd ../3-banco-de-dados
 python carga_banco.py
 ```
 
 #### Etapa 4: Web API e Dashboard
+
 ```bash
 # Backend
 cd ../4-web-api/server
@@ -369,9 +413,15 @@ pnpm dev
 
 ### 🌐 Acessos
 
-- **API Backend**: http://127.0.0.1:8000
-- **Swagger UI**: http://127.0.0.1:8000/docs
-- **Dashboard**: http://localhost:3000
+- **_Inicie os servidores tanto do Front-End quanto do Back-End_**
+
+```bash
+- API Backend: http://127.0.0.1:8000
+
+- Swagger UI: http://127.0.0.1:8000/docs
+
+- Dashboard: http://localhost:3000
+```
 
 ---
 
@@ -395,6 +445,15 @@ detalhe_despesas
 ├── EVENTO
 ├── DESCRICAO
 └── VL_SALDO_FINAL
+
+despesas_agregadas
+├── ID (PK)
+├── RAZAO_SOCIAL
+├── UF
+├── TOTAL_DESPESAS
+├── MEDIA_TRIMESTRAL
+├── DESVIO_PADRAO
+└── DATA_PROCESSAMENTO
 ```
 
 ### 📈 Dados Processados
@@ -417,19 +476,6 @@ detalhe_despesas
 
 </div>
 
----
-
-## 📝 Licença
-
 Este projeto foi desenvolvido como teste técnico para a **Intuitive Care**.
 
 ---
-
-<div align="center">
-
-**Desenvolvido com ❤️ usando Python, React e TypeScript**
-
-![Python](https://skillicons.dev/icons?i=python) ![React](https://skillicons.dev/icons?i=react) ![TypeScript](https://skillicons.dev/icons?i=typescript) ![AWS](https://skillicons.dev/icons?i=aws)
-
-</div>
-
