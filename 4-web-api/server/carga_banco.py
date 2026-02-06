@@ -58,11 +58,8 @@ class DatabaseLoader:
                 dtype=str
             )
 
-            # 1. Padroniza colunas (Maiúsculo e sem espaço)
             df.columns = [column.strip().upper().replace(" ", "_") for column in df.columns]
 
-            # 2. RENOMEAÇÃO FORÇADA (Para corrigir o erro "no such column")
-            # Isso garante que o banco tenha os nomes que a query espera
             rename_map = {
                 "DATA": "DATA_EVENTO",
                 "DT_UTILIZACAO": "DATA_EVENTO",
@@ -70,14 +67,13 @@ class DatabaseLoader:
                 "VALOR": "VALOR_COMERCIAL",
                 "REGISTRO_ANS": "REG_ANS",
                 "CD_OPERADORA": "REG_ANS",
-                "REGISTRO_OPERADORA": "REG_ANS"  # Para a tabela de cadastro
+                "REGISTRO_OPERADORA": "REG_ANS"  
             }
             df.rename(columns=rename_map, inplace=True)
 
             # --- DEBUG: Mostra no terminal quais colunas ficaram ---
             logging.info(f"Colunas finais na tabela '{tablename}': {df.columns.tolist()}")
 
-            # 3. Conversão de números
             if "despesas" in tablename:
                 cols_valor = [c for c in df.columns if "VALOR" in c or "TOTAL" in c or "MEDIA" in c or "DESVIO" in c]
                 for column in cols_valor:
@@ -85,7 +81,7 @@ class DatabaseLoader:
                         df[column] = df[column].str.replace(".", "", regex=False).str.replace(",", ".", regex=False)
                         df[column] = pd.to_numeric(df[column], errors="coerce").fillna(0.0)
                     except Exception:
-                        pass  # Ignora erros de conversão pontuais
+                        pass 
 
             logging.info(f"Salvando tabela '{tablename}' no Banco...")
             df.to_sql(tablename, self.engine, if_exists="replace", index=False)

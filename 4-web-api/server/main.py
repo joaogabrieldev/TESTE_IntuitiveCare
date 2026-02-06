@@ -11,21 +11,18 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Configuração CORS (Permite conexão do Front-end)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Aceita qualquer origem (localhost:3000, etc)
+    allow_origins=["*"],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Configuração do Banco
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "intuitive_care.db")
 DATABASE_URL = f"sqlite:///{DB_PATH}"
 
-# check_same_thread=False evita erros de thread no SQLite
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 
 
@@ -103,7 +100,7 @@ def detalhes_operadora(cnpj: str):
                 raise HTTPException(status_code=404, detail="Operadora não encontrada")
             return dict(row)
     except Exception as e:
-        print(f"❌ ERRO DETALHES: {e}")
+        print(f"ERRO DETALHES: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
