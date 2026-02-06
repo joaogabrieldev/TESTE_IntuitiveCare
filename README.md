@@ -106,6 +106,7 @@ O projeto está organizado em **4 etapas sequenciais**, cada uma com objetivos e
 - **Pandas**: Manipulação e processamento de dados tabulares
 - **Numpy**: Cálculos numéricos otimizados e estatísticas
 - **Requests**: Requisições HTTP para API da ANS
+- **Swagger**: Documentação de todas as Rotas de API do projeto 
 - **Boto3**: SDK AWS para integração com S3 e Lambda
 - **SQLAlchemy**: ORM para gerenciamento de banco de dados
 - **FastAPI**: Framework web moderno e performático
