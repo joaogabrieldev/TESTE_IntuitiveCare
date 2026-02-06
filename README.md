@@ -110,7 +110,7 @@ O projeto está organizado em **4 etapas sequenciais**, cada uma com objetivos e
 - **Boto3**: SDK AWS para integração com S3 e Lambda
 - **SQLAlchemy**: ORM para gerenciamento de banco de dados
 - **FastAPI**: Framework web moderno e performático
-- **Uvicorn**: Servidor ASGI para FastAPI
+- **Uvicorn**: A ferramenta que conecta o código FastAPI à internet.
 - **Pydantic**: Validação de dados e modelos
 - **Openpyxl**: Leitura de arquivos Excel
 
