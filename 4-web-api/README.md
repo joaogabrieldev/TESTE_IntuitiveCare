@@ -81,6 +81,12 @@ O projeto foi dividido em dois monorepositórios (Backend e Frontend) para mante
 
 **Justificativa**: O Chart.js é uma biblioteca leve e flexível para renderização de gráficos. Foi utilizada para criar a visualização das "Top 5 Maiores Despesas", oferecendo feedback visual imediato sobre os dados financeiros mais críticos, complementando a visão tabular.
 
+### 6. ORM e Abstração de Banco de Dados
+
+**Decisão**: Adoção do `SQLAlchemy` em detrimento de ORMs mais modernos ou automatizados (como `Prisma`).
+
+**Justificativa**: A escolha pelo SQLAlchemy foi estratégica para demonstrar competência técnica no manuseio de bancos de dados relacionais e na construção de queries complexas em Python. Embora soluções modernas como o Prisma ofereçam uma experiência de desenvolvimento (DX) superior e sejam minha preferência em projetos pessoais focados em agilidade (RAD), o SQLAlchemy permite evidenciar um entendimento mais profundo sobre o ciclo de vida das sessões, mapeamento objeto-relacional e otimização de consultas SQL "sob o capô".
+
 ## 🚀 Funcionalidades Implementadas
 
 ### Backend (API)
