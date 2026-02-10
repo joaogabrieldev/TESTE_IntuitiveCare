@@ -29,7 +29,7 @@ O projeto foi dividido em dois monorepositórios (Backend e Frontend) para mante
             │
             └── requirements.txt # Dependências Python
 
-        ├── frontend/ # Frontend (Node/Next.js)
+        ├── frontend/ # Frontend (React/Next.js)
             │
             ├── src/
             │
